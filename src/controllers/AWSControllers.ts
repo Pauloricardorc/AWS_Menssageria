@@ -33,6 +33,20 @@ class AWSController {
     })
   }
 
+  async MenssagePublish(request: Request, response: Response) {
+    let params = {
+      Message: request.body.message,
+      Subject: request.body.title,
+      TopicArn: process.env.ARN || ''
+    }
+
+    sns.publish(params, (err, data) => {
+      if(err) console.log(err)
+      
+      response.send(data)
+    })
+  }
+
   async ConfirmSub(request: Request, response: Response) {
     let params = {
       Token: request.body.token,
@@ -85,6 +99,18 @@ class AWSController {
 
     console.log({
       params
+    })
+  }
+
+  async ListTopics(request: Request, response: Response) {
+    let params = {
+      NextToken: ''
+    }
+
+    sns.listTopics(params, (err, data) => {
+      if(err) console.log(err)
+
+      response.send(data.Topics)
     })
   }
 

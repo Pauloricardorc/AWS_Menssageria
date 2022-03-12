@@ -7,6 +7,8 @@ const AWS_StatusController = new AWSController()
 
 router.get('/status', AWS_StatusController.status)
 
+router.get('/list/topics', AWS_StatusController.ListTopics)
+
 router.post('/aws/logs', AWS_StatusController.Logs)
 
 router.post('/subscribe', AWS_StatusController.Subcribe)
